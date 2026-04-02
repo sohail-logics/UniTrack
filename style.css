@@ -307,7 +307,7 @@ img { display: block; max-width: 100%; }
 }
 
 .header-greeting { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
-.greet-hi    { font-size: 10.5px; color: var(--ink-3); font-weight: 400; }
+.greet-hi    { font-size: 10.5px; color: var(--ink-1); font-weight: 400; }
 .greet-name  { font-size: 13.5px; font-weight: 700; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
