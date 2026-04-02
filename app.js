@@ -249,7 +249,7 @@ const UNI_DB = [
     program:'Applied Mathematics', degree:'B.Sc.', language:'English',
     appOpens:null, deadline:'2026-05-15', portal:'Direct', tuition:'Free (No Tuition)',
     ielts:'6.0', germanReq:'Not Required', restriction:'No NC (open)',
-    vpd:false, matchScore:'85%', priorityKey:'safety', priority:'✅ Already Admitted!',
+    vpd:false, matchScore:'85%', priorityKey:'safety', priority:'✅ Good Backup',
     notes:' Good mathematical foundation for AI/ML careers. Will use as fallback if needed.',
     strategy:'Have this offer. Only decline if a better public uni comes through.',
     special:'Already applied and received admission offer.',
