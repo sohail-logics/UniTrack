@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>UniTrack — Germany University Application Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Track German university applications, deadlines, IELTS requirements and documents. Winter 2026 intake.">
+  <meta name="theme-color" content="#1B5E8F">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ WELCOME SCREEN ═══ -->
+<div id="welcome-screen">
+  <div class="welcome-wrap">
+    <div class="welcome-card">
+      <span class="welcome-flag">🇩🇪</span>
+      <div class="welcome-title">UniTrack Germany</div>
+      <div class="welcome-sub">
+        Your personal dashboard to track German university applications,
+        deadlines, and documents — all in one place. Winter 2026 intake.
+      </div>
+      <label class="welcome-label" for="welcome-name">Your name</label>
+      <input
+        type="text"
+        id="welcome-name"
+        class="welcome-input"
+        placeholder="e.g. Sohail Ahmad"
+        autocomplete="given-name"
+        maxlength="50"
+      >
+      <button class="welcome-btn" id="start-btn">Open My Dashboard →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ MAIN APP ══════════ -->
+<div id="app">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-row">
+      <div class="brand">
+        <span class="brand-flag">🇩🇪</span>
+        <div class="brand-text">
+          <span class="brand-name">UniTrack</span>
+          <span class="brand-sub">Your personal Uni Application Tracker</span>
+        </div>
+      </div>
+
+      <div class="header-sep"></div>
+
+      <div class="header-greeting" id="header-greeting">
+        <span class="greet-hi" id="greet-hi">Welcome back,</span>
+        <span class="greet-name" id="greet-name"></span>
+      </div>
+
+      <div class="header-right">
+        <button class="icon-btn" id="theme-btn" title="Toggle light / dark mode">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Urgent banner -->
+  <div id="urgent-banner"></div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-icon-wrap si-blue">📋</div>
+        <div class="stat-info">
+          <div class="stat-lbl">Tracking</div>
+          <div class="stat-num num-blue" id="stat-total">0</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon-wrap si-amber">📬</div>
+        <div class="stat-info">
+          <div class="stat-lbl">Applied</div>
+          <div class="stat-num" id="stat-applied">0</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon-wrap si-green">🎉</div>
+        <div class="stat-info">
+          <div class="stat-lbl">Admitted</div>
+          <div class="stat-num num-green" id="stat-admitted">0</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon-wrap si-red">⏰</div>
+        <div class="stat-info">
+          <div class="stat-lbl">Next Deadline</div>
+          <div class="stat-num num-amber" id="stat-next">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav tabs -->
+  <div class="nav-bar">
+    <div class="nav-row">
+      <button class="nav-tab active" id="tab-my">
+        📋 My List <span class="tab-badge" id="tab-my-count">0</span>
+      </button>
+      <button class="nav-tab" id="tab-all">
+        🔍 Browse All <span class="tab-badge">27</span>
+      </button>
+      <div class="nav-spacer"></div>
+      <button class="btn-add-custom" id="btn-add-custom">
+        <span>＋</span><span>Add Custom</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="page-wrap">
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="search"
+          id="search"
+          class="search-input"
+          placeholder="Search university, program, city…"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="filter-bar" id="filter-bar">
+        <button class="f-pill on" data-filter="all">All</button>
+        <button class="f-pill" data-filter="planning">📌 Planning</button>
+        <button class="f-pill" data-filter="applied">📬 Applied</button>
+        <button class="f-pill" data-filter="admitted">🎉 Admitted</button>
+        <button class="f-pill" data-filter="rejected">✗ Rejected</button>
+      </div>
+
+      <button class="btn-export" id="btn-export">⬇ Export</button>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid" id="grid"></div>
+
+    <!-- Empty state -->
+    <div class="empty" id="empty">
+      <div class="empty-ico">🎓</div>
+      <div class="empty-title">Your list is empty</div>
+      <div class="empty-desc">
+        Browse all 27 universities from your research and click
+        <strong>＋ Add</strong> to start tracking them here.
+      </div>
+      <button class="btn-go-browse" onclick="document.getElementById('tab-all').click()">
+        Browse All 27 Universities →
+      </button>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-line">
+        <span>Crafted with ❤️ by</span><a
+          href="https://sohail-logics.vercel.app"
+          target="_blank"
+          rel="noopener"
+           class="footer-name"
+          title="Portfolio"
+        > Sohail Ahmad</a>
+    
+        <span>·</span>
+        
+        <a
+          href="https://www.linkedin.com/in/sohail-logics"
+          target="_blank"
+          rel="noopener"
+          class="footer-link"
+          title="LinkedIn"
+        >💼 LinkedIn</a>
+        <span class="footer-sub" id="change-name" title="Click to update your name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;">
+          Change name
+        </span>
+      </div>
+      <div class="footer-sub">
+        UniTrack - 2026· All data saved locally in your browser · No account needed
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /app -->
+
+
+<!-- ═══════════════════════════════════════ DETAIL MODAL ══════ -->
+<div class="overlay" id="detail-overlay">
+  <div class="detail-modal" id="detail-content">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ ADD CUSTOM MODAL ══ -->
+<div class="overlay" id="custom-overlay">
+  <div class="custom-modal">
+
+    <button class="modal-close-btn" id="close-custom" style="position:absolute;top:14px;right:14px;">✕</button>
+
+    <div class="cm-title">✏️ Add Custom University</div>
+    <div class="cm-sub">Add any university not in the preset list. Fill in what you know — you can edit later.</div>
+
+    <form id="custom-form" onsubmit="return false;">
+
+      <div class="cm-section-title">Basic Information</div>
+      <div class="edit-grid">
+        <div class="edit-group edit-full">
+          <label class="edit-lbl">University Name <span style="color:var(--urgent)">*</span></label>
+          <input id="cn-name" class="edit-input" placeholder="e.g. TU Darmstadt" required>
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">City</label>
+          <input id="cn-city" class="edit-input" placeholder="e.g. Darmstadt">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">State / Region</label>
+          <input id="cn-state" class="edit-input" placeholder="e.g. Hesse">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Program Name</label>
+          <input id="cn-program" class="edit-input" placeholder="e.g. Computer Science">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Degree</label>
+          <select id="cn-degree" class="edit-select">
+            <option>B.Sc.</option>
+            <option>B.Eng.</option>
+            <option>B.A.</option>
+            <option>M.Sc.</option>
+            <option>M.Eng.</option>
+          </select>
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Teaching Language</label>
+          <select id="cn-language" class="edit-select">
+            <option>English</option>
+            <option>German</option>
+            <option>Bilingual (EN/DE)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cm-section-title">Deadlines</div>
+      <div class="edit-grid">
+        <div class="edit-group">
+          <label class="edit-lbl">Application Deadline</label>
+          <input id="cn-deadline" class="edit-input" type="date">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">App Opens (date)</label>
+          <input id="cn-opens" class="edit-input" type="date">
+        </div>
+      </div>
+
+      <div class="cm-section-title">Requirements & Fees</div>
+      <div class="edit-grid">
+        <div class="edit-group">
+          <label class="edit-lbl">Apply Via (Portal)</label>
+          <select id="cn-portal" class="edit-select">
+            <option>Direct</option>
+            <option>Uni-Assist</option>
+            <option>TUMonline (direct)</option>
+            <option>Hochschulstart</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Tuition / Semester Fee</label>
+          <input id="cn-tuition" class="edit-input" placeholder="e.g. Free or €500/sem">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">IELTS Minimum</label>
+          <input id="cn-ielts" class="edit-input" placeholder="e.g. 6.0">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">German Requirement</label>
+          <input id="cn-german" class="edit-input" placeholder="e.g. Not Required / A2">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">NC / Restriction</label>
+          <select id="cn-restriction" class="edit-select">
+            <option value="No NC (open)">No NC (open admission)</option>
+            <option value="NC">NC (numerus clausus)</option>
+            <option value="NC-Free (open admission)">NC-Free</option>
+          </select>
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">VPD Required</label>
+          <select id="cn-vpd" class="edit-select">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Match Score (e.g. 85%)</label>
+          <input id="cn-match" class="edit-input" placeholder="e.g. 80%">
+        </div>
+      </div>
+
+      <div class="cm-section-title">Contact & Links</div>
+      <div class="edit-grid">
+        <div class="edit-group">
+          <label class="edit-lbl">Contact Email</label>
+          <input id="cn-email" class="edit-input" type="email" placeholder="international@uni.de">
+        </div>
+        <div class="edit-group">
+          <label class="edit-lbl">Program URL</label>
+          <input id="cn-link" class="edit-input" type="url" placeholder="https://...">
+        </div>
+      </div>
+
+      <div class="cm-section-title">Notes & Strategy</div>
+      <div class="edit-grid">
+        <div class="edit-group edit-full">
+          <label class="edit-lbl">Special Requirements</label>
+          <textarea id="cn-special" class="edit-textarea" placeholder="Tests, interviews, extra documents needed…"></textarea>
+        </div>
+        <div class="edit-group edit-full">
+          <label class="edit-lbl">Notes</label>
+          <textarea id="cn-notes" class="edit-textarea" placeholder="General notes about this university…"></textarea>
+        </div>
+        <div class="edit-group edit-full">
+          <label class="edit-lbl">Your Strategy / Reminders</label>
+          <textarea id="cn-strategy" class="edit-textarea" placeholder="When to apply, what to prepare, personal tips…"></textarea>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);">
+        <button class="btn-secondary" id="cancel-custom" type="button">Cancel</button>
+        <button class="btn-primary"   id="save-custom-btn" type="button">💾 Save University</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
