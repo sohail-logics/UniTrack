@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>UniTrack — University Application Tracker</title>
+  <title>UniTrack — Germany University Application Tracker</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="description" content="Track universities applications, deadlines, requirements and documents.">
+  <meta name="description" content="Track German university applications, deadlines, IELTS requirements and documents. Winter 2026 intake.">
   <meta name="theme-color" content="#1B5E8F">
 </head>
 <body>
@@ -14,11 +14,11 @@
 <div id="welcome-screen">
   <div class="welcome-wrap">
     <div class="welcome-card">
-    
-      <div class="welcome-title">UniTrack</div>
+      <span class="welcome-flag">🇩🇪</span>
+      <div class="welcome-title">UniTrack Germany</div>
       <div class="welcome-sub">
-        Your personal dashboard to track university applications,
-        deadlines, and documents — all in one place. Usefull For all Student.
+        Your personal dashboard to track German university applications,
+        deadlines, documents and costs — all in one place. Winter 2026 intake.
       </div>
       <label class="welcome-label" for="welcome-name">Your name</label>
       <input
@@ -44,13 +44,13 @@
         <span class="brand-flag">🇩🇪</span>
         <div class="brand-text">
           <span class="brand-name">UniTrack</span>
-          <span class="brand-sub">Your personal Uni Application Tracker</span>
+          <span class="brand-sub">Germany Application Tracker</span>
         </div>
       </div>
 
       <div class="header-sep"></div>
 
-      <div class="header-greeting" id="header-greeting">
+      <div class="header-greeting">
         <span class="greet-hi" id="greet-hi">Welcome back,</span>
         <span class="greet-name" id="greet-name"></span>
       </div>
@@ -105,11 +105,18 @@
         📋 My List <span class="tab-badge" id="tab-my-count">0</span>
       </button>
       <button class="nav-tab" id="tab-all">
-        🔍 Browse All <span class="tab-badge">27</span>
+        🔍 Browse <span class="tab-badge">27</span>
       </button>
+      <button class="nav-tab" id="tab-timeline">
+        📅 Timeline
+      </button>
+      <button class="nav-tab" id="tab-costs">
+        💰 Costs
+      </button>
+
       <div class="nav-spacer"></div>
       <button class="btn-add-custom" id="btn-add-custom">
-        <span>＋</span><span>Add Custom</span>
+        <span>＋</span><span class="btn-label-text">Add Custom</span>
       </button>
     </div>
   </div>
@@ -117,103 +124,99 @@
   <!-- Page content -->
   <div class="page-wrap">
 
-    <!-- Controls -->
-    <div class="controls">
-      <div class="search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input
-          type="search"
-          id="search"
-          class="search-input"
-          placeholder="Search university, program, city…"
-          autocomplete="off"
-        >
+    <!-- ── MY LIST + BROWSE view ── -->
+    <div id="view-list">
+      <div class="controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" id="search" class="search-input" placeholder="Search university, program, city…" autocomplete="off">
+        </div>
+        <div class="filter-bar" id="filter-bar">
+          <button class="f-pill on" data-filter="all">All</button>
+          <button class="f-pill" data-filter="planning">📌 Planning</button>
+          <button class="f-pill" data-filter="applied">📬 Applied</button>
+          <button class="f-pill" data-filter="admitted">🎉 Admitted</button>
+          <button class="f-pill" data-filter="rejected">✗ Rejected</button>
+        </div>
+        <div class="controls-right">
+          <button class="btn-export" id="btn-export">⬇ Export</button>
+          <button class="btn-import" id="btn-import">⬆ Import</button>
+          
+        </div>
       </div>
-
-      <div class="filter-bar" id="filter-bar">
-        <button class="f-pill on" data-filter="all">All</button>
-        <button class="f-pill" data-filter="planning">📌 Planning</button>
-        <button class="f-pill" data-filter="applied">📬 Applied</button>
-        <button class="f-pill" data-filter="admitted">🎉 Admitted</button>
-        <button class="f-pill" data-filter="rejected">✗ Rejected</button>
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty">
+        <div class="empty-ico">🎓</div>
+        <div class="empty-title">Your list is empty</div>
+        <div class="empty-desc">Browse all 27 universities and click <strong>＋ Add</strong> to start tracking.</div>
+        <button class="btn-go-browse" onclick="document.getElementById('tab-all').click()">Browse All 27 Universities →</button>
       </div>
-
-      <button class="btn-export" id="btn-export">⬇ Export</button>
     </div>
 
-    <!-- Cards grid -->
-    <div class="grid" id="grid"></div>
-
-    <!-- Empty state -->
-    <div class="empty" id="empty">
-      <div class="empty-ico">🎓</div>
-      <div class="empty-title">Your list is empty</div>
-      <div class="empty-desc">
-        Browse all 27 universities for Bachlors CS field from My research and click
-        <strong>＋ Add</strong> to start tracking them here or you can add new university/course by clicking add custom button.
+    <!-- ── TIMELINE view ── -->
+    <div id="view-timeline" style="display:none">
+      <div class="view-header">
+        <div class="view-title">📅 Application Timeline</div>
+        <div class="view-sub">All your tracked university deadlines in chronological order</div>
       </div>
-      <button class="btn-go-browse" onclick="document.getElementById('tab-all').click()">
-        Browse All 27 Universities →
-      </button>
+      <div id="timeline-content"></div>
     </div>
 
-  </div><!-- /page-wrap -->
+    <!-- ── COST ESTIMATOR view ── -->
+    <div id="view-costs" style="display:none">
+      <div class="view-header">
+        <div class="view-title">💰 Cost Estimator</div>
+        <div class="view-sub">Estimated yearly costs per university — tuition + living expenses</div>
+      </div>
+      <div class="cost-settings-bar">
+        <div class="cost-setting-group">
+          <label class="cost-setting-lbl">PKR/€ Rate</label>
+          <input type="number" id="pkr-rate" class="cost-rate-input" value="305" min="100" max="1000">
+        </div>
+        <div class="cost-setting-group">
+          <label class="cost-setting-lbl">Show currency</label>
+          <select id="currency-toggle" class="cost-rate-select">
+            <option value="eur">€ Euro only</option>
+            <option value="pkr">PKR only</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+        <button class="btn-recalc" id="btn-recalc">🔄 Recalculate</button>
+      </div>
+      <div id="costs-content"></div>
+    </div>
 
+  
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-line">
-        <span>Crafted with ❤️ by</span><a
-          href="https://sohail-logics.vercel.app"
-          target="_blank"
-          rel="noopener"
-           class="footer-name"
-          title="Portfolio"
-        > Sohail Ahmad</a>
-    
+        <span>Crafted with ❤️ by</span>
+        <a href="https://sohail-logics.vercel.app" target="_blank" rel="noopener" class="footer-name">Sohail Ahmad</a>
         <span>·</span>
-        
-        <a
-          href="https://www.linkedin.com/in/sohail-logics"
-          target="_blank"
-          rel="noopener"
-          class="footer-link"
-          title="LinkedIn"
-        >💼 LinkedIn</a>
-        <span class="footer-sub" id="change-name" title="Click to update your name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;">
-          Change name
-        </span>
+        <a href="https://www.linkedin.com/in/sohail-logics" target="_blank" rel="noopener" class="footer-link">💼 LinkedIn</a>
+        <span class="footer-sub" id="change-name" title="Click to update your name" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;">Change name</span>
       </div>
-      <div class="footer-sub">
-        UniTrack - 2026· All data saved locally in your browser · No account needed
-      </div>
+      <div class="footer-sub">UniTrack 2026 · All data saved locally · No account needed</div>
     </div>
   </footer>
 
 </div><!-- /app -->
 
-
-<!-- ═══════════════════════════════════════ DETAIL MODAL ══════ -->
+<!-- ═══════════════ DETAIL MODAL ══════════════════════════════ -->
 <div class="overlay" id="detail-overlay">
-  <div class="detail-modal" id="detail-content">
-    <!-- Filled by JS -->
-  </div>
+  <div class="detail-modal" id="detail-content"></div>
 </div>
 
-
-<!-- ═══════════════════════════════════════ ADD CUSTOM MODAL ══ -->
+<!-- ═══════════════ ADD CUSTOM MODAL ═════════════════════════ -->
 <div class="overlay" id="custom-overlay">
   <div class="custom-modal">
-
-    <button class="modal-close-btn" id="close-custom" style="position:absolute;top:14px;right:14px;">✕</button>
-
+    <button class="modal-close-btn" id="close-custom">✕</button>
     <div class="cm-title">✏️ Add Custom University</div>
-    <div class="cm-sub">Add any university not in the preset list. Fill in what you know — you can edit later.</div>
-
+    <div class="cm-sub">Add any university not in the preset list.</div>
     <form id="custom-form" onsubmit="return false;">
-
       <div class="cm-section-title">Basic Information</div>
       <div class="edit-grid">
         <div class="edit-group edit-full">
@@ -235,23 +238,17 @@
         <div class="edit-group">
           <label class="edit-lbl">Degree</label>
           <select id="cn-degree" class="edit-select">
-            <option>B.Sc.</option>
-            <option>B.Eng.</option>
-            <option>B.A.</option>
-            <option>M.Sc.</option>
-            <option>M.Eng.</option>
+            <option>B.Sc.</option><option>B.Eng.</option><option>B.A.</option>
+            <option>M.Sc.</option><option>M.Eng.</option>
           </select>
         </div>
         <div class="edit-group">
           <label class="edit-lbl">Teaching Language</label>
           <select id="cn-language" class="edit-select">
-            <option>English</option>
-            <option>German</option>
-            <option>Bilingual (EN/DE)</option>
+            <option>English</option><option>German</option><option>Bilingual (EN/DE)</option>
           </select>
         </div>
       </div>
-
       <div class="cm-section-title">Deadlines</div>
       <div class="edit-grid">
         <div class="edit-group">
@@ -259,21 +256,17 @@
           <input id="cn-deadline" class="edit-input" type="date">
         </div>
         <div class="edit-group">
-          <label class="edit-lbl">App Opens (date)</label>
+          <label class="edit-lbl">App Opens</label>
           <input id="cn-opens" class="edit-input" type="date">
         </div>
       </div>
-
       <div class="cm-section-title">Requirements & Fees</div>
       <div class="edit-grid">
         <div class="edit-group">
           <label class="edit-lbl">Apply Via (Portal)</label>
           <select id="cn-portal" class="edit-select">
-            <option>Direct</option>
-            <option>Uni-Assist</option>
-            <option>TUMonline (direct)</option>
-            <option>Hochschulstart</option>
-            <option>Other</option>
+            <option>Direct</option><option>Uni-Assist</option>
+            <option>TUMonline (direct)</option><option>Hochschulstart</option><option>Other</option>
           </select>
         </div>
         <div class="edit-group">
@@ -299,16 +292,10 @@
         <div class="edit-group">
           <label class="edit-lbl">VPD Required</label>
           <select id="cn-vpd" class="edit-select">
-            <option value="false">No</option>
-            <option value="true">Yes</option>
+            <option value="false">No</option><option value="true">Yes</option>
           </select>
         </div>
-        <div class="edit-group">
-          <label class="edit-lbl">Match Score (e.g. 85%)</label>
-          <input id="cn-match" class="edit-input" placeholder="e.g. 80%">
-        </div>
       </div>
-
       <div class="cm-section-title">Contact & Links</div>
       <div class="edit-grid">
         <div class="edit-group">
@@ -320,31 +307,49 @@
           <input id="cn-link" class="edit-input" type="url" placeholder="https://...">
         </div>
       </div>
-
-      <div class="cm-section-title">Notes & Strategy</div>
+      <div class="cm-section-title">Notes</div>
       <div class="edit-grid">
-        <div class="edit-group edit-full">
-          <label class="edit-lbl">Special Requirements</label>
-          <textarea id="cn-special" class="edit-textarea" placeholder="Tests, interviews, extra documents needed…"></textarea>
-        </div>
         <div class="edit-group edit-full">
           <label class="edit-lbl">Notes</label>
           <textarea id="cn-notes" class="edit-textarea" placeholder="General notes about this university…"></textarea>
         </div>
-        <div class="edit-group edit-full">
-          <label class="edit-lbl">Your Strategy / Reminders</label>
-          <textarea id="cn-strategy" class="edit-textarea" placeholder="When to apply, what to prepare, personal tips…"></textarea>
-        </div>
       </div>
-
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);">
         <button class="btn-secondary" id="cancel-custom" type="button">Cancel</button>
-        <button class="btn-primary"   id="save-custom-btn" type="button">💾 Save University</button>
+        <button class="btn-primary" id="save-custom-btn" type="button">💾 Save University</button>
       </div>
-
     </form>
   </div>
 </div>
+
+<!-- ═══════════════ IMPORT MODAL ════════════════════════════ -->
+<div class="overlay" id="import-overlay">
+  <div class="import-modal">
+    <button class="modal-close-btn" id="close-import">✕</button>
+    <div class="cm-title">⬆ Import Backup</div>
+    <div class="cm-sub">Restore your data from a previously exported UniTrack JSON backup file.</div>
+    <div class="import-drop-zone" id="import-drop-zone">
+      <div class="import-drop-icon">📂</div>
+      <div class="import-drop-text">Drop your JSON file here or click to browse</div>
+      <input type="file" id="import-file-input" accept=".json" style="display:none">
+      <button class="btn-secondary" id="btn-browse-file">Browse File</button>
+    </div>
+    <div class="import-preview" id="import-preview" style="display:none">
+      <div class="import-preview-title">Preview</div>
+      <div id="import-preview-content"></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
+        <button class="btn-secondary" id="cancel-import">Cancel</button>
+        <button class="btn-primary" id="confirm-import">✓ Restore Backup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ HIDDEN PDF FRAME ═══════════════════════ -->
+<div id="pdf-frame" style="display:none"></div>
+
+<!-- Hidden file input for import -->
+<input type="file" id="global-import-input" accept=".json" style="display:none">
 
 <script src="app.js"></script>
 </body>
