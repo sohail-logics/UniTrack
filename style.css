@@ -846,7 +846,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 640px) {
   .header-row { height: 52px; padding: 0 14px; }
   .header-sep, .brand-sub { display: none; }
-  .page-wrap { padding: 16px 14px 48px; overflow-x: hidden; }
+  .page-wrap { padding: 16px 14px 0; overflow-x: hidden; }
   .controls { flex-direction: column; align-items: stretch; gap: 8px; width: 100%; overflow: hidden; }
   .search-box { max-width: 100%; width: 100%; min-width: 0; }
   .filter-bar { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; width: 100%; max-width: 100%; }
@@ -876,6 +876,7 @@ img { display: block; max-width: 100%; }
   .docs-uni-header { padding: 12px 14px; }
   .docs-checklist { padding: 0 12px 14px; }
   .edit-grid { grid-template-columns: 1fr; }
+   .site-footer{ margin-top:50px;}
 }
 
 @media (max-width: 380px) {
