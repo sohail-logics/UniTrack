@@ -8,7 +8,7 @@ const UNI_DB = [
     id:'oth-regensburg', name:'OTH Regensburg', city:'Regensburg', state:'Bavaria',
     program:'International Computer Science', degree:'B.Sc.', language:'English',
     appOpens:'2026-05-01', deadline:'2026-07-15', portal:'Direct', tuition:'€500/sem (Non-EU)',
-    ielts:'5.0', germanReq:'A2', restriction:'NC (numerus clausus)',
+    ielts:'5.0', germanReq:'A2(tentative)', restriction:'NC (numerus clausus)',
     vpd:true, matchScore:'95%', priorityKey:'top', priority:'⭐ Best Pick',
     notes:'EXCELLENT match. Public uni. Good acceptance rate. Practical CS focus. Very international student body. Accept VPD from other universities.',
     strategy:'Apply FIRST in May. Your profile is very competitive here.',
@@ -112,7 +112,7 @@ const UNI_DB = [
     id:'th-ingolstadt', name:'TH Ingolstadt', city:'Ingolstadt', state:'Bavaria',
     program:'Computer Science & AI', degree:'B.Sc.', language:'English',
     appOpens:'2026-05-02', deadline:'2026-07-15', portal:'Direct', tuition:'€872/sem (Non-EU)',
-    ielts:'6.0', germanReq:'A1 (after 1st semester)', restriction:'NC',
+    ielts:'6.0', germanReq:'A1 (after 1st semester)', restriction:' NO NC',
     vpd:true, matchScore:'75%', priorityKey:'good', priority:'👍 Good Option',
     notes:'Public. Near Munich. Combined CS + AI curriculum. Higher non-EU fees but strong quality program.Does not Accept VPD from other universities',
     strategy:'VPD must be submitted by May 30 — separate from main deadline. Do not miss!',
@@ -174,7 +174,7 @@ const UNI_DB = [
     livingCost: 780
   },
   {
-    id:'tum', name:'TU Munich (TUM)', city:'Munich', state:'Bavaria',
+    id:'tum', name:'TU Munich (TUM)', city:'Heilbronn', state:'Baden-Württemberg',
     program:'Management & Data Science', degree:'B.Sc.', language:'English',
     appOpens:'2026-05-15', deadline:'2026-07-15', portal:'TUMonline (direct)', tuition:'€97/sem',
     ielts:'6.5', germanReq:'B2 (IELTS 6.5+)', restriction:'NC (very competitive)',
@@ -184,7 +184,7 @@ const UNI_DB = [
     special:'A-Levels equivalent, VPD, Letter of Motivation, CV, Passport. Aptitude assessment included.',
     email:'admission@tum.de',
     link:'https://www.tum.de/studium/studienangebot/detail/management-and-data-science',
-    livingCost: 1300
+    livingCost: 850
   },
   {
     id:'htw-berlin', name:'HTW Berlin', city:'Berlin', state:'Berlin',
@@ -615,7 +615,7 @@ function buildCard(uni, entry, isBrowse) {
         <span class="chip ${tuitionCls}">💰 ${uni.tuition}</span>
         <span class="chip ch-ielts">📝 IELTS ${uni.ielts}+</span>
         ${uni.germanReq && uni.germanReq !== 'Not Required' && uni.germanReq !== 'No' ? `<span class="chip ch-de">🇩🇪 ${uni.germanReq}</span>` : ''}
-        ${uni.restriction.toLowerCase().includes('nc') && !uni.restriction.toLowerCase().includes('free') ? `<span class="chip ch-nc">⚡ NC</span>` : ''}
+        ${uni.restriction.toLowerCase().includes('nc') && !uni.restriction.toLowerCase().includes('no') ? `<span class="chip ch-nc">⚡ NC</span>` : ''}
         ${uni.vpd ? `<span class="chip ch-vpd">📄 VPD</span>` : ''}
       </div>
       <div class="dl-block">
