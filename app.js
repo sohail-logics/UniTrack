@@ -21,7 +21,7 @@ const UNI_DB = [
     id:'fau-ai', name:'FAU Erlangen-Nürnberg', city:'Erlangen', state:'Bavaria',
     program:'Artificial Intelligence', degree:'B.Sc.', language:'English',
     appOpens:'2026-04-15', deadline:'2026-07-15', portal:'Direct', tuition:'72€/sem (Non-EU)',
-    ielts:'6.0', germanReq:'No', restriction:'NC-Free (open admission)',
+    ielts:'6.0', germanReq:'No', restriction:'NO NC (open admission)',
     vpd:false, matchScore:'90%', priorityKey:'top', priority:'⭐ Top Pick',
     notes:'TOP PROGRAM. Public, zero tuition, no NC restriction. One of Germany\'s strongest AI faculties.',
     strategy:'Apply early May. Math test is manageable with 2–3 weeks prep.',
@@ -34,7 +34,7 @@ const UNI_DB = [
     id:'fau-autonomy', name:'FAU Erlangen-Nürnberg', city:'Erlangen', state:'Bavaria',
     program:'Autonomy Technologies', degree:'B.Sc.', language:'English',
     appOpens:'2026-04-13', deadline:'2026-07-15', portal:'Direct', tuition:'72€/sem (Non-EU)',
-    ielts:'6.0', germanReq:'Not Required', restriction:'NC-Free (open admission)',
+    ielts:'6.0', germanReq:'Not Required', restriction:'NO NC (open admission)',
     vpd:false, matchScore:'90%', priorityKey:'top', priority:'⭐ Top Pick',
     notes:'ROBOTICS/AI focus. Public, free tuition, no restrictions. Industry project in every semester.',
     strategy:'Apply both FAU programs simultaneously — same portal, same documents.',
@@ -615,7 +615,7 @@ function buildCard(uni, entry, isBrowse) {
         <span class="chip ${tuitionCls}">💰 ${uni.tuition}</span>
         <span class="chip ch-ielts">📝 IELTS ${uni.ielts}+</span>
         ${uni.germanReq && uni.germanReq !== 'Not Required' && uni.germanReq !== 'No' ? `<span class="chip ch-de">🇩🇪 ${uni.germanReq}</span>` : ''}
-        ${uni.restriction.toLowerCase().includes('nc') && !uni.restriction.toLowerCase().includes('no') ? `<span class="chip ch-nc">⚡ NC</span>` : ''}
+        ${uni.restriction.toLowerCase().includes('nc') && !uni.restriction.toLowerCase().includes('no') ? `<span class="chip ch-nc">⚡ NC</span>` : '<span class="chip ch-nc">⚡ NC-free</span>'}
         ${uni.vpd ? `<span class="chip ch-vpd">📄 VPD</span>` : ''}
       </div>
       <div class="dl-block">
